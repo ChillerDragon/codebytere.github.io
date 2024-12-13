@@ -3,6 +3,8 @@
 class Shell {
   constructor(term, commands) {
     this.commands = commands;
+    this.commandCompletionIndex = 0;
+    this.commandCompletionInput = '';
     this.setupListeners(term);
     this.term = term;
 
@@ -70,6 +72,16 @@ class Shell {
       // 46 -> Delete key.
 
       if (evt.keyCode === 9) {
+        const currentInput = $('.input').last().text()
+        if(currentInput 
+        const currentInput = this.commandCompletionInput
+        const commandNames = Object.keys(this.commands).filter((name) => name.startsWith(currentInput))
+        this.commandCompletionIndex++;
+        console.log(commandNames)
+        const cmd = commandNames[this.commandCompletionIndex % commandNames.length];
+        $('.input')
+          .last()
+          .html(`${cmd}<span class="end"><span>`);
         evt.preventDefault();
       } else if (evt.keyCode === 27) {
         $('.terminal-window').toggleClass('fullscreen');
